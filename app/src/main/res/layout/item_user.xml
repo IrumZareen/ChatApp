@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_profile_pic"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:contentDescription="@null"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_profile_pic_pace_holder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toEndOf="@id/iv_profile_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_profile_pic"
+        tools:text="User Name"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_profile_pic"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_a19f9f"
+        app:layout_constraintStart_toStartOf="@id/tv_user_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_user_name"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
