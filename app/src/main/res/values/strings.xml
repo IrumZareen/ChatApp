@@ -19,4 +19,6 @@
     <string name="pakistan">Pakistan</string>
     <string name="all_users">All Users</string>
     <string name="friends">Friends</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

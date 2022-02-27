@@ -8,8 +8,11 @@ import com.sofit.test.databinding.ItemUserBinding
 import com.sofit.test.model.User
 import com.squareup.picasso.Picasso
 
-class AllUserAdapter(private val usersList: MutableList<User>) :
-    RecyclerView.Adapter<AllUserAdapter.ViewHolder>() {
+class AllUserAndFriendAdapter(
+    private val usersList: MutableList<User>,
+    private val onUserItemClick: OnUserItemClick
+) :
+    RecyclerView.Adapter<AllUserAndFriendAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,9 +25,21 @@ class AllUserAdapter(private val usersList: MutableList<User>) :
         Picasso.get().load(usersList[position].profilePic)
             .placeholder(R.drawable.ic_profile_pic_pace_holder)
             .error(R.drawable.ic_profile_pic_pace_holder)
+            .into(holder.binding.ivProfilePic)
+
+        holder.binding.clItemUser.setOnClickListener {
+            onUserItemClick.onUserItemClick(usersList[position])
+        }
+
     }
 
     override fun getItemCount(): Int {
         return usersList.size
     }
+
+    interface OnUserItemClick {
+        fun onUserItemClick(item: User)
+    }
+
+
 }

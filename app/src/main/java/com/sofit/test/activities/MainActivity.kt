@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     val intent = Intent(this@MainActivity, LoginActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
         }.start()
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private fun startHomeActivity() {
         val intent = Intent(this@MainActivity, HomeActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
 }
