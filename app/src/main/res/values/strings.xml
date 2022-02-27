@@ -15,4 +15,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search country here</string>
+    <string name="save">Save</string>
+    <string name="pakistan">Pakistan</string>
+    <string name="all_users">All Users</string>
+    <string name="friends">Friends</string>
 </resources>

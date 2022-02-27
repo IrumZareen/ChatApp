@@ -2,19 +2,17 @@ package com.sofit.test.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.sofit.test.HomeActivity
 import com.sofit.test.R
 import com.sofit.test.databinding.ActivityLoginBinding
 
 
 /**
- *Login Activity , I am using this activity for both sign in and sign up functionalities.
+ *Login Activity , will be used for both sign in and sign up functionalities.
  * On the basis of text of the button user can sign in or sign up the account.
  **/
 
@@ -62,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, navigating user to home screen
                     val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
@@ -82,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                     // Sign up success, we will navigate to profile screen to get user info from user
                     val intent = Intent(this@LoginActivity, SetUpProfileActivity::class.java)
                     startActivity(intent)
+                    finish()
 
                 } else {
                     // If the case of failure, we will display a message to the user.

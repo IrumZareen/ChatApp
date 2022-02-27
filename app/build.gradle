@@ -54,7 +54,25 @@ dependencies {
     //to display circular imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    // firebase
+    // Firebase
     implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
+
+
+    //Retrofit
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //viewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
+
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+
+    //firebase storage
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
 }

@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.database.FirebaseDatabase
+import com.sofit.test.R
 import com.sofit.test.adapters.ViewPagerAdapter
 import com.sofit.test.databinding.FragmentHomeBinding
 
@@ -17,24 +20,33 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         setUpViewPager()
         return binding.root
     }
 
     private fun setUpViewPager() {
         binding.viewPager.adapter = ViewPagerAdapter(
-            arrayListOf<Fragment>(
+            arrayListOf(
                 AllUsersFragment(),
                 FriendListFragment()
             ),
             requireActivity().supportFragmentManager,
             lifecycle
         )
+        val tabTitles = listOf(
+            requireActivity().getString(R.string.all_users),
+            requireActivity().getString(R.string.friends)
+        )
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
     }
 }
