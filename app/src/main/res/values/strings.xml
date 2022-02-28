@@ -21,4 +21,7 @@
     <string name="friends">Friends</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="update_profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="type_message_here">Type message here ...</string>
 </resources>

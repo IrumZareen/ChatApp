@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.sofit.test.R
 import com.sofit.test.adapters.AllUserAndFriendAdapter
 import com.sofit.test.databinding.FragmentFriendListBinding
 import com.sofit.test.model.User
@@ -70,6 +72,6 @@ class FriendListFragment : Fragment() ,AllUserAndFriendAdapter.OnUserItemClick{
     }
 
     override fun onUserItemClick(item: User) {
-
+       findNavController().navigate(R.id.chatFragment)
     }
 }

@@ -24,6 +24,19 @@
             app:layout_constraintTop_toTopOf="parent"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_back_arrow" />
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_open_menu" />
 
         <TextView
             android:id="@+id/tv_fragmentName"

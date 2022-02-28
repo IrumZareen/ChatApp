@@ -6,6 +6,8 @@
         <entry key="..\:/Others/ChatApp/app/src/main/res/drawable/bg_bottom_sheet.xml" value="0.1345" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/drawable/bg_search_service.xml" value="0.1345" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/drawable/ic_chat_logo.xml" value="0.199" />
+        <entry key="..\:/Others/ChatApp/app/src/main/res/drawable/ic_open_menu.xml" value="0.114" />
+        <entry key="..\:/Others/ChatApp/app/src/main/res/drawable/ic_profile.xml" value="0.1345" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/drawable/mobile_phone_760.xml" value="0.113" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/drawable/stroke_background.xml" value="0.1345" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
@@ -15,12 +17,16 @@
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/activity_splash.xml" value="0.20416666666666666" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/dialog_add_friend.xml" value="0.33" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/fragment_all_users.xml" value="0.20416666666666666" />
+        <entry key="..\:/Others/ChatApp/app/src/main/res/layout/fragment_chat.xml" value="0.20416666666666666" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/fragment_country_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/fragment_friend_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/item_country.xml" value="0.33" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/item_user.xml" value="0.20416666666666666" />
+        <entry key="..\:/Others/ChatApp/app/src/main/res/layout/nav_header_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Others/ChatApp/app/src/main/res/layout/toolbaar.xml" value="0.20416666666666666" />
+        <entry key="..\:/Others/ChatApp/app/src/main/res/layout/toolbar.xml" value="0.20416666666666666" />
+        <entry key="..\:/Others/ChatApp/app/src/main/res/menu/drawer_menu.xml" value="0.33" />
       </map>
     </option>
   </component>
