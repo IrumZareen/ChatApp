@@ -236,7 +236,7 @@ class SetUpProfileActivity : AppCompatActivity() {
     }
 
     private fun saveUserInfoInDataStore() {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             dataStoreManager.saveUserToPreferencesStore(
                 user = User(
                     name = binding.etName.text.toString(),

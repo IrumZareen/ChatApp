@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
@@ -62,7 +63,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun getUserInfo() {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             DataStoreHandlerClass(this@HomeActivity).getUserFromPreferencesStore().catch { e ->
                 e.printStackTrace()
             }.collect {

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -106,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveData(user: User?, email: String) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             DataStoreHandlerClass(this@LoginActivity).saveUserToPreferencesStore(
                 user = User(
                     name = user?.name,
