@@ -6,9 +6,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.sofit.test.R
 import com.sofit.test.databinding.ActivityLoginBinding
+import com.sofit.test.model.User
+import com.sofit.test.services.DataStoreHandlerClass
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -39,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             if (validates()) {
                 if (binding.btnLogin.text == getString(R.string.login)) {
-                    loginUser()
+                    loginUser("")
                 } else {
                     createNewUser()
                 }
@@ -50,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginUser() {
+    private fun loginUser(s: String) {
         firebaseAuth.signInWithEmailAndPassword(
             binding.etEmail.text.toString(),
             binding.etPassword.text.toString()
@@ -58,9 +64,13 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, navigating user to home screen
-                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    if (s == getString(R.string.from_profile)) {
+                        val intent = Intent(this@LoginActivity, SetUpProfileActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        storeDataOfUserInDataStore()
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(
@@ -71,6 +81,47 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+    private fun storeDataOfUserInDataStore() {
+        FirebaseDatabase.getInstance().getReference("Users")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (dataSnapShot in snapshot.children) {
+                        val user = dataSnapShot.getValue(User::class.java)
+                        if (user?.email == binding.etEmail.text.toString()) {
+                            saveData(user,binding.etEmail.text.toString())
+                            break
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Error in saving user data",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
+    }
+
+    private fun saveData(user: User?, email: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            DataStoreHandlerClass(this@LoginActivity).saveUserToPreferencesStore(
+                user = User(
+                    name = user?.name,
+                    email = email,
+                    profilePic = user?.profilePic,
+                    country = user?.country
+                )
+            )
+        }
+        //navigate to home activity after storing data
+        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun createNewUser() {
         firebaseAuth.createUserWithEmailAndPassword(
             binding.etEmail.text.toString(),
@@ -79,9 +130,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign up success, we will navigate to profile screen to get user info from user
-                    val intent = Intent(this@LoginActivity, SetUpProfileActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    loginUser(getString(R.string.from_profile))
 
                 } else {
                     // If the case of failure, we will display a message to the user.

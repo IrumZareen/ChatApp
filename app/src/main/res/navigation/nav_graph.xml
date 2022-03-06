@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.sofit.test.ChatFragment"
+        android:name="com.sofit.test.fragments.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
 </navigation>

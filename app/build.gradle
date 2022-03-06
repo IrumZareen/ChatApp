@@ -75,4 +75,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
 
     implementation 'com.squareup.picasso:picasso:2.8'
+
+    //datastore to store data locally
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }

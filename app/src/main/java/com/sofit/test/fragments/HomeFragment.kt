@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.Lifecycle
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.database.FirebaseDatabase
 import com.sofit.test.R
+import com.sofit.test.activities.HomeActivity
 import com.sofit.test.adapters.ViewPagerAdapter
 import com.sofit.test.databinding.FragmentHomeBinding
 
@@ -29,7 +31,14 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         setUpViewPager()
+        registerListeners()
         return binding.root
+    }
+
+    private fun registerListeners() {
+        binding.toolBar.ivMenu.setOnClickListener {
+            (requireActivity() as HomeActivity).drawerLayout.openDrawer(GravityCompat.START)
+        }
     }
 
     private fun setUpViewPager() {

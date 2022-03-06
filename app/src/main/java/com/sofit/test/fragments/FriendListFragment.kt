@@ -21,14 +21,15 @@ import com.sofit.test.model.User
 /**
  * A fragment to display the list of friends , this is one of the children of home fragment
  */
-class FriendListFragment : Fragment() ,AllUserAndFriendAdapter.OnUserItemClick{
+class FriendListFragment : Fragment(), AllUserAndFriendAdapter.OnUserItemClick {
 
     private lateinit var binding: FragmentFriendListBinding
-    private lateinit var friendsAdapter : AllUserAndFriendAdapter
+    private lateinit var friendsAdapter: AllUserAndFriendAdapter
     private var friendList: MutableList<User> = ArrayList()
 
     private var firebaseDataBase = FirebaseDatabase.getInstance()
         .getReference("Users")     //firebase database instance to save data in real time database
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +40,7 @@ class FriendListFragment : Fragment() ,AllUserAndFriendAdapter.OnUserItemClick{
         fetchData()
         return binding.root
     }
+
     private fun fetchData() {
         binding.progressBar.visibility = View.VISIBLE
         firebaseDataBase.addValueEventListener(object : ValueEventListener {
@@ -55,6 +57,13 @@ class FriendListFragment : Fragment() ,AllUserAndFriendAdapter.OnUserItemClick{
                     }
                 }
                 binding.progressBar.visibility = View.GONE
+                if (friendList.size == 0) {
+                    binding.tvNoFriend.visibility = View.VISIBLE
+                    binding.rvFriendsList.visibility = View.GONE
+                } else {
+                    binding.tvNoFriend.visibility = View.GONE
+                    binding.rvFriendsList.visibility = View.VISIBLE
+                }
                 friendsAdapter.notifyDataSetChanged()
             }
 
@@ -66,12 +75,15 @@ class FriendListFragment : Fragment() ,AllUserAndFriendAdapter.OnUserItemClick{
 
         })
     }
+
     private fun setAdapter() {
         friendsAdapter = AllUserAndFriendAdapter(friendList, this)
         binding.rvFriendsList.adapter = friendsAdapter
     }
 
     override fun onUserItemClick(item: User) {
-       findNavController().navigate(R.id.chatFragment)
+        val bundle = Bundle()
+        bundle.putSerializable("selectedFriend", item)
+        findNavController().navigate(R.id.action_homeFragment_to_chatFragment, bundle)
     }
 }

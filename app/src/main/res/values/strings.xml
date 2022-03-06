@@ -24,4 +24,6 @@
     <string name="update_profile">Profile</string>
     <string name="logout">Logout</string>
     <string name="type_message_here">Type message here ...</string>
+    <string name="from_profile">FromProfile</string>
+    <string name="no_friend">Your friend list is empty.</string>
 </resources>

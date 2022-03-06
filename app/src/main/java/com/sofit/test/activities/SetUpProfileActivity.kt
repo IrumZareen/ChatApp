@@ -23,13 +23,25 @@ import com.sofit.test.databinding.ActivitySetUpProfileBinding
 import com.sofit.test.fragments.CountryDialog
 import com.sofit.test.model.CountryItem
 import com.sofit.test.model.User
+import com.sofit.test.services.DataStoreHandlerClass
 import com.sofit.test.viewmodel.CountriesViewModel
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SetUpProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySetUpProfileBinding
     private lateinit var countriesViewModel: CountriesViewModel
     private var countryList = ArrayList<CountryItem>()
+    private lateinit var dataStoreManager: DataStoreHandlerClass
+    private var currentUserName : String ? = null
+    private var currentUserEmail : String ? = null
+    private var currentUserProfilePic : String ? = null
+    private var currentUserCountry : String ? = null
 
     private var firebaseStorage =
         FirebaseStorage.getInstance().reference // firebase storage instance to store image
@@ -60,6 +72,7 @@ class SetUpProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySetUpProfileBinding.inflate(layoutInflater)
+        getUserInfo()
         initResources()
         setObservers()
         triggerCountryApi()
@@ -67,11 +80,39 @@ class SetUpProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    private fun getUserInfo() {
+        GlobalScope.launch(Dispatchers.IO) {
+            DataStoreHandlerClass(this@SetUpProfileActivity).getUserFromPreferencesStore().catch { e ->
+                e.printStackTrace()
+            }.collect {
+                withContext(Dispatchers.Main) {
+                    currentUserName = it.name
+                    currentUserEmail = it.email
+                    currentUserProfilePic = it.profilePic
+                    currentUserCountry = it.country
+                }
+            }
+        }
+    }
+
     private fun triggerCountryApi() {
         countriesViewModel.getCountries()
     }
 
     private fun initResources() {
+        if(currentUserName != null){
+            binding.etName.setText(currentUserName)
+        }
+        if(currentUserProfilePic != null){
+            Picasso.get().load(currentUserProfilePic)
+                .placeholder(R.drawable.ic_profile_pic_pace_holder)
+                .error(R.drawable.ic_profile_pic_pace_holder)
+                .into(binding.civProfileImage)
+        }
+        if(currentUserCountry != null){
+            binding.tvSelectCountry.text = currentUserCountry
+        }
+        dataStoreManager = DataStoreHandlerClass(this)
         binding.tvSelectCountry.text = getString(R.string.pakistan)
         countriesViewModel = ViewModelProvider(this).get(CountriesViewModel::class.java)
     }
@@ -179,6 +220,7 @@ class SetUpProfileActivity : AppCompatActivity() {
             firebaseDataBase.push().key?.let {
                 firebaseDataBase.child(it).setValue(user).addOnSuccessListener {
                     binding.progressBar.visibility = View.GONE
+                    saveUserInfoInDataStore()
                     navigateToHomeScreen()
                 }.addOnFailureListener {
                     binding.progressBar.visibility = View.GONE
@@ -190,6 +232,19 @@ class SetUpProfileActivity : AppCompatActivity() {
                         .show()
                 }
             }
+        }
+    }
+
+    private fun saveUserInfoInDataStore() {
+        GlobalScope.launch(Dispatchers.IO) {
+            dataStoreManager.saveUserToPreferencesStore(
+                user = User(
+                    name = binding.etName.text.toString(),
+                    email = firebaseAuth.currentUser?.email.toString(),
+                    profilePic = logoPathOfImage,
+                    country = binding.tvSelectCountry.text.toString()
+                )
+            )
         }
     }
 
